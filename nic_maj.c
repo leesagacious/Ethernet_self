@@ -1,3 +1,13 @@
+/*
+ * Check the physical link status and determine whether it is 
+ * connected (up) or disconnected (down)
+ */
+bool igb_has_link(struct igb_adapter *adapter)
+{
+	bool link_active = FALSE;
+
+	return link_active;
+}
 
 static int nicmaj_probe(struct pci_dev *pdev,
 		const struct pci_device_id *ent)
