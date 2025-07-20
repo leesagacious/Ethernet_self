@@ -18,6 +18,18 @@ void igb_reset(struct igb_adapter *adapter)
 bool igb_has_link(struct igb_adapter *adapter)
 {
 	bool link_active = FALSE;
+	
+	/*
+	 * detect the physical link status (wired connection status)
+	 * of the intel igb network card driver
+	 */
+	switch (hw->phy.media_type) {
+	case e1000_media_type_copper:
+	case e1000_media_type_internal_serdes:
+	default:
+	case e1000_media_type_unknown:
+		break;
+	}
 
 	return link_active;
 }
