@@ -27,6 +27,17 @@ static int nicmaj_probe(struct pci_dev *pdev,
 {
 	int err, pci_using_dac;
 
+	/*
+	 * Key check: Confirm that the device is not a Virtual Function(VF).
+	 * Reason: the igb driver should handle only Physical functions, if
+	 * a VF is detected, trigger a kernel warning and return -EINVAL
+	 */
+	if (pdev->is_virtfn) {
+		WARN(1, KERN_ERR "%s (%hx:%hx) should not be a VF!\n",
+			pci_name(dev), pdev->vendor, pdev->device);
+		return -EINVAL;
+	}
+
 	err = pci_enable_device_mem(pdev);
 	if (err)
 		return err;
