@@ -25,6 +25,9 @@ bool igb_has_link(struct igb_adapter *adapter)
 	 */
 	switch (hw->phy.media_type) {
 	case e1000_media_type_copper:
+		if (!hw->mac.get_link_status)
+			return true;
+		fallthrough;
 	case e1000_media_type_internal_serdes:
 	default:
 	case e1000_media_type_unknown:
