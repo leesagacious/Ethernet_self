@@ -25,6 +25,9 @@ bool igb_has_link(struct igb_adapter *adapter)
 	 */
 	switch (hw->phy.media_type) {
 	case e1000_media_type_copper:
+		/*
+		 * link not need check. link is stable
+		 */
 		if (!hw->mac.get_link_status)
 			return true;
 		fallthrough;
