@@ -23,6 +23,7 @@ bool igb_has_link(struct igb_adapter *adapter)
 	 * detect the physical link status (wired connection status)
 	 * of the intel igb network card driver
 	 */
+	// determine whether the media is copper or serrdes
 	switch (hw->phy.media_type) {
 	case e1000_media_type_copper:
 		/*
