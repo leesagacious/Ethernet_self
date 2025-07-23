@@ -40,6 +40,8 @@ bool igb_has_link(struct igb_adapter *adapter)
 
 	/*
 	 * to determine whether the MAC type is 210 or 211
+	 * for i210/211 chips combined with specific PHY configuration
+	 * only
 	 */
 	if ((hw->mac.type == e1000_i210) || 
 	    (hw->mac.type == e1000_i211) && 
