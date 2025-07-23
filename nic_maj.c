@@ -38,6 +38,15 @@ bool igb_has_link(struct igb_adapter *adapter)
 		break;
 	}
 
+	/*
+	 * to determine whether the MAC type is 210 or 211
+	 */
+	if ((hw->mac.type == e1000_i210) || 
+	    (hw->mac.type == e1000_i211) && 
+	    (hw->phy.id == I210_PHY_ID)) {
+		
+	}
+
 	return link_active;
 }
 
