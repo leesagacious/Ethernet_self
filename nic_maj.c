@@ -57,6 +57,14 @@ bool igb_has_link(struct igb_adapter *adapter)
 		 */
 		if (!netif_carrier_ok(adapter->netdev)) 
 			adapter->flags &= ~IGB_FLAG_NEED_LINK_UPDATE;
+		/*
+		 * if the network device has a carrier (the physical link is connected
+		 * properly)
+		 * and the NEED_LINK_UPDATE flag is not currently set.
+		 * then:
+		 * 	set the IGB_FLAG_NEED_LINK_UPDATE bit
+		 * 	assign the current kernel timestamp (jiffies) to link check timeout
+		 */
 		else if (!(adapter->flags & IGB_FLAG_NEED_LINK_UPDATE)) {
 			adapter->flags |= IGB_FLAG_NEED_LINK_UPDATE;
 			adapter->link_check_timeout = jiffies;
