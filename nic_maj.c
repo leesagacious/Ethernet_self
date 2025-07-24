@@ -46,7 +46,21 @@ bool igb_has_link(struct igb_adapter *adapter)
 	if ((hw->mac.type == e1000_i210) || 
 	    (hw->mac.type == e1000_i211) && 
 	    (hw->phy.id == I210_PHY_ID)) {
-		
+		/*
+		 * check whether the network device has no carrier
+		 * the physical link is not connected
+		 *
+		 * clear the NEED_LINK_UPDATE flag (indicating that a link update
+		 * is not required)
+		 * since the no-carrier state is now a confirmed physical condition
+		 * and no additional detection is needed
+		 */
+		if (!netif_carrier_ok(adapter->netdev)) 
+			adapter->flags &= ~IGB_FLAG_NEED_LINK_UPDATE;
+		else if (!(adapter->flags & IGB_FLAG_NEED_LINK_UPDATE)) {
+			adapter->flags |= IGB_FLAG_NEED_LINK_UPDATE;
+			adapter->link_check_timeout = jiffies;
+		}	
 	}
 
 	return link_active;
