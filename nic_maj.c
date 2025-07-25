@@ -71,6 +71,9 @@ bool igb_has_link(struct igb_adapter *adapter)
 		}	
 	}
 
+	/*
+	 * final state of the link
+	 */
 	return link_active;
 }
 
