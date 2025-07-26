@@ -39,6 +39,18 @@ bool igb_has_link(struct igb_adapter *adapter)
 	}
 
 	/*
+	 * the setting of this flag acts as a signal to the driver:
+	 * the current link status may have changed.
+	 *
+	 * the driver needs to re-check and confirm the actual link 
+	 * status. 
+	 *
+	 * the flag itself does not directly indicate whether the link
+	 * is up or down.
+	 */
+
+
+	/*
 	 * to determine whether the MAC type is 210 or 211
 	 * for i210/211 chips combined with specific PHY configuration
 	 * only
