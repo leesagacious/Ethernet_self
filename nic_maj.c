@@ -30,7 +30,8 @@ bool igb_has_link(struct igb_adapter *adapter)
 		 * link not need check. link is stable
 		 */
 		if (!hw->mac.get_link_status)
-			return true;
+			link_active = !link_active;
+			goto out;
 		fallthrough;
 	case e1000_media_type_internal_serdes:
 	default:
@@ -83,6 +84,7 @@ bool igb_has_link(struct igb_adapter *adapter)
 		}	
 	}
 
+out:
 	return link_active;
 }
 
