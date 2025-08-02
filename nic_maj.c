@@ -109,11 +109,19 @@ static int nicmaj_probe(struct pci_dev *pdev,
 		return err;
 
 	pci_using_dac = 0;
-
+	/*
+	 * test and configure the DMA engine inside the i210 NIC to ensure 
+	 * it can correctly access the 64-bit physical address space
+	 */
 	err = dma_set_mask(pci_dev_to_dev(pdev), DMA_BIT_MASK(64));
 	if (!err) {
-	
+		pci_using_dac = 1;	
 	} else {
-	
+		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+		if (err) {
+			dev_err(&pdev->dev,
+				"No usable DMA configuration,aborting\n");
+			goto err_dma;
+		}
 	}
 }	
